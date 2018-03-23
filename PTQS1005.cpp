@@ -130,7 +130,7 @@ uint16_t PTQS1005::get_divider_for(uint8_t eq_byte_index) {
         return 1000;
     }
 
-    debug_if(is_debug_mode, "Invalid 'equivalent' value %d Perceive with default divider i.e. 10. \r\n", eq);
+    debug_if(is_debug_mode, "Invalid 'equivalent' value %d. Proceed with default divider i.e. 10. \r\n", eq);
 
     return 10;
 }
