@@ -62,6 +62,8 @@ public:
 
     char *get_raw_sensor_data_read();
 
+    void print_debug_info();
+
 private:
     void uart_receive_new_data_handler();
 

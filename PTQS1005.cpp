@@ -158,3 +158,16 @@ float PTQS1005::get_temperature() {
 float PTQS1005::get_humidity() {
     return (float) get_raw_humidity() / 10;
 }
+
+void PTQS1005::print_debug_info() {
+    if (is_raw_sensor_data_ready()) {
+        debug_if(is_debug_mode,"PTQS1005 PM2.5: %.2f ug/m3 \r\n", sensor.get_pm25());
+        debug_if(is_debug_mode,"PTQS1005 TVOC: %.2f ppm \r\n", sensor.get_tvoc());
+        debug_if(is_debug_mode,"PTQS1005 HCHO: %.2f ppm \r\n", sensor.get_hcho());
+        debug_if(is_debug_mode,"PTQS1005 CO2: %.2f ppm \r\n", sensor.get_co2());
+        debug_if(is_debug_mode,"PTQS1005 Temperature: %.2f C \r\n", sensor.get_temperature());
+        debug_if(is_debug_mode,"PTQS1005 Humidity: %.2f %% \r\n", sensor.get_humidity());
+    } else {
+        debug_if(is_debug_mode, "Raw sensor data not ready!\r\n");
+    }
+}
