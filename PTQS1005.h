@@ -30,7 +30,7 @@ class PTQS1005 {
 public:
     PTQS1005(Serial &uart);
 
-    void init();
+    bool init();
 
     void read_sensors_data();
 

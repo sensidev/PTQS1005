@@ -14,8 +14,9 @@ void PTQS1005::uart_receive_new_data_handler() {
     }
 }
 
-void PTQS1005::init() {
+bool PTQS1005::init() {
     _uart->attach(this, &PTQS1005::uart_receive_new_data_handler, _uart->RxIrq);
+    return true;
 }
 
 void PTQS1005::read_sensors_data() {
@@ -132,7 +133,7 @@ uint16_t PTQS1005::get_divider_for(uint8_t eq_byte_index) {
 
     debug_if(is_debug_mode, "Invalid 'equivalent' value %d. Proceed with default divider i.e. 10. \r\n", eq);
 
-    return 10;
+    return 100;
 }
 
 float PTQS1005::get_pm25() {
@@ -161,12 +162,12 @@ float PTQS1005::get_humidity() {
 
 void PTQS1005::print_debug_info() {
     if (is_raw_sensor_data_ready()) {
-        debug_if(is_debug_mode,"PTQS1005 PM2.5: %.2f ug/m3 \r\n", sensor.get_pm25());
-        debug_if(is_debug_mode,"PTQS1005 TVOC: %.2f ppm \r\n", sensor.get_tvoc());
-        debug_if(is_debug_mode,"PTQS1005 HCHO: %.2f ppm \r\n", sensor.get_hcho());
-        debug_if(is_debug_mode,"PTQS1005 CO2: %.2f ppm \r\n", sensor.get_co2());
-        debug_if(is_debug_mode,"PTQS1005 Temperature: %.2f C \r\n", sensor.get_temperature());
-        debug_if(is_debug_mode,"PTQS1005 Humidity: %.2f %% \r\n", sensor.get_humidity());
+        debug_if(is_debug_mode,"PTQS1005 PM2.5: %.2f ug/m3 \r\n", get_pm25());
+        debug_if(is_debug_mode,"PTQS1005 TVOC: %.2f ppm \r\n", get_tvoc());
+        debug_if(is_debug_mode,"PTQS1005 HCHO: %.2f ppm \r\n", get_hcho());
+        debug_if(is_debug_mode,"PTQS1005 CO2: %.2f ppm \r\n", get_co2());
+        debug_if(is_debug_mode,"PTQS1005 Temperature: %.2f C \r\n", get_temperature());
+        debug_if(is_debug_mode,"PTQS1005 Humidity: %.2f %% \r\n", get_humidity());
     } else {
         debug_if(is_debug_mode, "Raw sensor data not ready!\r\n");
     }
